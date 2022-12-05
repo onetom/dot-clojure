@@ -17,7 +17,7 @@
   ;; testing and debugging tools (this would normally be overridden
   ;; by a :test alias in the project deps.edn file -- but it's a
   ;; useful default):
-  :test {:extra-paths ["test" "src/test/clojure"]
+  #_#_:test {:extra-paths ["test" "src/test/clojure"]
          :extra-deps {org.clojure/test.check {:mvn/version "1.1.1"}}}
   ;; - see https://github.com/cognitect-labs/test-runner
   ;; - run your tests: clj -X:test:runner
