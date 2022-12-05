@@ -101,6 +101,21 @@
   ;; master is currently 1.12:
   :master {:override-deps {org.clojure/clojure {:mvn/version "1.12.0-master-SNAPSHOT"}}}
 
+  :cljs {:deps {org.clojure/clojurescript {:mvn/version "1.11.4"}}
+         :main-opts ["--main" "cljs.main"]}
+
+  ;; closh -- a Clojure shell
+  ;; - see https://github.com/dundalek/closh
+  :closh {:extra-deps {io.github.dundalek/closh
+                       {:local/root "/User/onetom/github.com/dundalek/closh"
+                        :deps/manifest :deps
+                        :deps/root "/"}
+                       #_{:git/url "https://github.com/onetom/closh"
+                          :sha "960e4ade7cacb6d50e4726051eae08b391494365"}
+                       #_{:git/url "https://github.com/dundalek/closh"
+                          :sha "b1a7fd310b6511048fbacb8e496f574c8ccfa291"}}
+          :main-opts ["-m" "closh.zero.frontend.rebel"]}
+
   :add-libs ; to get access to clojure.tools.deps.alpha.repl/add-libs
   ;; IMPORTANT NOTE: this is the new add-lib3 branch but is still a work
   ;; in progress and likely to break/change as the core team's work
