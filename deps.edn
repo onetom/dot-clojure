@@ -1,14 +1,16 @@
 ;; copyright (c) 2018-2022 sean corfield, all rights reserved
 
 ;; see https://github.com/seancorfield/dot-clojure
-{:mvn/repos {"sonatype" {:url "https://oss.sonatype.org/content/repositories/snapshots/"}}
+{:mvn/repos {"sonatype" {:url "https://oss.sonatype.org/content/repositories/snapshots/"}
+             "google-maven-central" {:url "https://maven-central-asia.storage-download.googleapis.com/maven2/"}
+             "clojars" {:url "https://repo.clojars.org/"}}
  :aliases
  {;; jar installation and deployment:
   ;; - see https://github.com/slipset/deps-deploy
   ;;   - clj -X:deploy :artifact '"project.jar"'
   ;; - this relies on having a pom.xml file and, for deployment, these two
   ;;   environment variables: CLOJARS_USERNAME, CLOJARS_PASSWORD
-  :deploy {:replace-deps {slipset/deps-deploy {:mvn/version "RELEASE"}}
+  :deploy {:replace-deps {slipset/deps-deploy {:mvn/version "0.2.0"}}
            :exec-fn deps-deploy.deps-deploy/deploy
            :exec-args {:installer :remote}}
 
@@ -16,7 +18,7 @@
   ;; by a :test alias in the project deps.edn file -- but it's a
   ;; useful default):
   :test {:extra-paths ["test" "src/test/clojure"]
-         :extra-deps {org.clojure/test.check {:mvn/version "RELEASE"}}}
+         :extra-deps {org.clojure/test.check {:mvn/version "1.1.1"}}}
   ;; - see https://github.com/cognitect-labs/test-runner
   ;; - run your tests: clj -X:test:runner
   :runner {:extra-deps {io.github.cognitect-labs/test-runner
@@ -24,7 +26,7 @@
            :exec-fn cognitect.test-runner.api/test
            :exec-args {:dirs ["test" "src/test/clojure"]}}
   ;; - see https://github.com/jonase/eastwood#running-eastwood-in-a-repl
-  :eastwood {:extra-deps {jonase/eastwood {:mvn/version "RELEASE"}}
+  :eastwood {:extra-deps {jonase/eastwood {:mvn/version "1.3.0"}}
              :main-opts ["-m" "eastwood.lint" "{:source-paths,[\"src\"],:test-paths,[\"test\"]}"]}
   ;; - see https://github.com/athos/clj-check
   :check {:extra-deps {io.github.athos/clj-check
@@ -32,11 +34,11 @@
           :main-opts ["-m" "clj-check.check"]}
   ;; - see https://github.com/clojure-expectations/clojure-test
   ;; - run your expectations: clj -M:test:expect:runner
-  :expect {:extra-deps {com.github.seancorfield/expectations {:mvn/version "RELEASE"}}}
+  :expect {:extra-deps {com.github.seancorfield/expectations {:mvn/version "2.0.160"}}}
   ;; - see https://github.com/hugoduncan/criterium/
   ;; - (require '[criterium.core :refer [bench]])
   ;; - (bench (your-expression))
-  :bench {:extra-deps {criterium/criterium {:mvn/version "RELEASE"}}}
+  :bench {:extra-deps {criterium/criterium {:mvn/version "0.4.6"}}}
 
   ;; REPL-related tools:
   ;; - start Figwheel and/or Rebel Readline, with a socket REPL:
@@ -52,15 +54,15 @@
   :socket {:jvm-opts ["-Dclojure.server.repl={:address,\"0.0.0.0\",:port,50505,:accept,clojure.core.server/repl}"]}
   ;; - see https://github.com/bhauman/rebel-readline
   ;; - start a Rebel Readline REPL:
-  :rebel {:extra-deps {com.bhauman/rebel-readline {:mvn/version "RELEASE"}}
+  :rebel {:extra-deps {com.bhauman/rebel-readline {:mvn/version "0.1.4"}}
           :main-opts ["-m" "rebel-readline.main"]}
   ;; - see https://nrepl.org/
   ;; - start a basic nREPL server on a random available port:
-  :nrepl {:extra-deps {nrepl/nrepl {:mvn/version "RELEASE"}}
+  :nrepl {:extra-deps {nrepl/nrepl {:mvn/version "1.0.0"}}
           :main-opts ["-m" "nrepl.cmdline"]}
   ;; - see https://nrepl.org/
   ;; - start a CIDER-enhanced nREPL server on a random available port:
-  :cider-nrepl {:extra-deps {cider/cider-nrepl {:mvn/version "RELEASE"}}
+  :cider-nrepl {:extra-deps {cider/cider-nrepl {:mvn/version "0.28.7"}}
                 :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}
 
   ;; - see https://github.com/jimpil/jedi-time
@@ -68,7 +70,7 @@
   {:extra-deps {jedi-time/jedi-time {:mvn/version "0.2.1"}}}
   ;; - see https://github.com/djblue/portal
   :portal
-  {:extra-deps {djblue/portal {:mvn/version "RELEASE"}}}
+  {:extra-deps {djblue/portal {:mvn/version "0.35.0"}}}
   ;; - see https://github.com/stuarthalloway/reflector
   :reflect
   {:extra-deps {io.github.stuarthalloway/reflector
